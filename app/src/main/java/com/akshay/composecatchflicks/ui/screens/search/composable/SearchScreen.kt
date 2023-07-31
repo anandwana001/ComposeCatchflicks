@@ -60,8 +60,8 @@ fun SearchScreen(
     ) {
         SearchField(uiState = searchState, searchEvent = searchEvent)
         SearchResultUi(uiState = searchState)
-        ListTitle(R.string.genre)
-        GenreList(list = searchState.genreResult, colors = searchState.listOfColors)
+        ListTitle(titleId = R.string.genre)
+        GenreList(list = searchState.genreResult, listOfColors = searchState.listOfColors)
     }
 }
 
@@ -143,12 +143,9 @@ private fun SearchResultUi(
 }
 
 @Composable
-private fun GenreList(list: List<Genres>, colors: List<Color>) {
+private fun GenreList(list: List<Genres>, listOfColors: List<Color>) {
     val listRem by rememberSaveable {
         mutableStateOf(list)
-    }
-    val listOfColors by rememberSaveable {
-        mutableStateOf(colors)
     }
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),

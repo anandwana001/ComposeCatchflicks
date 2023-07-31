@@ -21,12 +21,12 @@ import androidx.compose.ui.unit.sp
  * 03, April, 2023
  **/
 @Composable
-fun ListTitle(@StringRes titleId: Int) {
+fun ListTitle(modifier: Modifier = Modifier, @StringRes titleId: Int) {
     val titleRemember by remember {
         mutableIntStateOf(titleId)
     }
     Text(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(16.dp),
         style = MaterialTheme.typography.headlineSmall,

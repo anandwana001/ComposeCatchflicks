@@ -16,7 +16,7 @@ import com.akshay.composecatchflicks.ui.theme.textColor
  * 29, July, 2023
  **/
 @Composable
-fun DescriptionText(modifier: Modifier, des: String) {
+fun DescriptionText(modifier: Modifier = Modifier, des: String) {
     Text(
         modifier = modifier
             .fillMaxWidth()

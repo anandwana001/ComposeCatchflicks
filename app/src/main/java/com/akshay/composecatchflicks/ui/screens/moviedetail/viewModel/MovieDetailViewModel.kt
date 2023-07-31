@@ -3,8 +3,8 @@ package com.akshay.composecatchflicks.ui.screens.moviedetail.viewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.akshay.composecatchflicks.domain.repository.MoviesRepository
 import com.akshay.composecatchflicks.domain.model.MovieDetail
+import com.akshay.composecatchflicks.domain.repository.MoviesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

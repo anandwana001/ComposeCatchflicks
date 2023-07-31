@@ -16,5 +16,6 @@ class TvViewModel @Inject constructor(
     tvRepository: TvRepository
 ) : ViewModel() {
 
-    val list = tvRepository.getTopRatedTv("en").cachedIn(viewModelScope)
+    val topRatedTvList = tvRepository.getTopRatedTv("en").cachedIn(viewModelScope)
+
 }

@@ -22,12 +22,18 @@ import com.akshay.composecatchflicks.ui.screens.search.composable.SearchScreen
 import com.akshay.composecatchflicks.ui.screens.search.viewModel.SearchViewModel
 import com.akshay.composecatchflicks.ui.screens.tv.composable.TvScreen
 import com.akshay.composecatchflicks.ui.screens.tv.viewModel.TvViewModel
+import com.akshay.composecatchflicks.ui.screens.tvdetail.compose.TvDetailScreen
+import com.akshay.composecatchflicks.ui.screens.tvdetail.viewModel.TvDetailViewModel
 import kotlinx.coroutines.launch
 
 /**
  * Created by anandwana001 on
  * 08, November, 2022
  **/
+
+const val MOVIE_DETAIL_ROUTE = "detail/{movieId}"
+const val TV_DETAIL_ROUTE = "tvDetail/{seriesId}"
+
 @Composable
 fun NavHostContainer(
     navController: NavHostController,
@@ -41,12 +47,12 @@ fun NavHostContainer(
         startDestination = ComposeCatchflicksCategory.MOVIE.route,
         modifier = Modifier.padding(paddingValues),
         builder = {
-            composable("movies") {
-                val data = viewModel.list.collectAsLazyPagingItems()
+            composable(ComposeCatchflicksCategory.MOVIE.route) {
+                val popularMovies = viewModel.popularMoviesList.collectAsLazyPagingItems()
                 val nowPlaying = viewModel.nowPlayingMoviesList.collectAsLazyPagingItems()
                 val upcoming = viewModel.upcomingMoviesList.collectAsLazyPagingItems()
                 MoviesScreen(
-                    data = data,
+                    popularMovies = popularMovies,
                     nowPlaying = nowPlaying,
                     upcoming = upcoming,
                 ) { id ->
@@ -55,15 +61,15 @@ fun NavHostContainer(
                     }
                 }
             }
-            composable("tv") {
-                val data = tvViewModel.list.collectAsLazyPagingItems()
-                TvScreen(data = data) { id ->
-                    navController.navigate("detail/${id}") {
+            composable(ComposeCatchflicksCategory.TV.route) {
+                val topRatedTv = tvViewModel.topRatedTvList.collectAsLazyPagingItems()
+                TvScreen(topRatedTv = topRatedTv) { id ->
+                    navController.navigate("tvDetail/${id}") {
                         popUpTo("tv")
                     }
                 }
             }
-            composable("search") {
+            composable(ComposeCatchflicksCategory.SEARCH.route) {
                 val coroutineScope = rememberCoroutineScope()
                 val searchState by searchViewModel.searchStateData.collectAsStateWithLifecycle()
                 SearchScreen(searchState = searchState) {
@@ -73,12 +79,21 @@ fun NavHostContainer(
                 }
             }
             composable(
-                "detail/{movieId}",
-                arguments = listOf(navArgument("movieId") { type = NavType.IntType }, )
+                MOVIE_DETAIL_ROUTE,
+                arguments = listOf(navArgument("movieId") { type = NavType.IntType })
             ) {
                 val movieDetailViewModel = hiltViewModel<MovieDetailViewModel>()
                 val detail = movieDetailViewModel.movieStateData.collectAsStateWithLifecycle()
                 MovieDetailScreen(detail = detail)
+            }
+
+            composable(
+                TV_DETAIL_ROUTE,
+                arguments = listOf(navArgument("seriesId") { type = NavType.IntType })
+            ) {
+                val tvDetailViewModel = hiltViewModel<TvDetailViewModel>()
+                val detail = tvDetailViewModel.tvStateData.collectAsStateWithLifecycle()
+                TvDetailScreen(detail = detail)
             }
         })
 }

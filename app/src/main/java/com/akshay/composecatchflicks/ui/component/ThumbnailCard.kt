@@ -28,16 +28,17 @@ import coil.request.CachePolicy
 import coil.request.ImageRequest
 import com.akshay.composecatchflicks.R
 import com.akshay.composecatchflicks.ui.theme.Purple80
+import com.akshay.composecatchflicks.ui.util.BASE_IMAGE_PATH
 
 /**
  * Created by anandwana001 on
  * 29, July, 2023
  **/
 @Composable
-fun ThumbnailCard(modifier: Modifier, posterThumbnail: String) {
+fun ThumbnailCard(modifier: Modifier = Modifier, posterThumbnail: String) {
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
-            .data("https://image.tmdb.org/t/p/original$posterThumbnail")
+            .data("$BASE_IMAGE_PATH$posterThumbnail")
             .diskCachePolicy(CachePolicy.ENABLED)
             .size(200, 380)
             .build()

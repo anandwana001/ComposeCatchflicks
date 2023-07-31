@@ -27,7 +27,7 @@ import com.akshay.composecatchflicks.ui.util.navigate
 @Composable
 fun MoviesScreen(
     modifier: Modifier = Modifier,
-    data: LazyPagingItems<Movie>,
+    popularMovies: LazyPagingItems<Movie>,
     nowPlaying: LazyPagingItems<Movie>,
     upcoming: LazyPagingItems<Movie>,
     popTo: (Int) -> Unit,
@@ -37,22 +37,20 @@ fun MoviesScreen(
             .background(screenBackgroundColor)
             .fillMaxHeight()
     ) {
-        showUpcomingMovies(upcoming, modifier, popTo)
-        showNowPlayingMovies(nowPlaying, modifier, popTo)
-        showPopularMovies(data, modifier, popTo)
+        showUpcomingMovies(upcoming, popTo)
+        showNowPlayingMovies(nowPlaying, popTo)
+        showPopularMovies(popularMovies, popTo)
     }
 }
 
 private fun LazyListScope.showPopularMovies(
-    data: LazyPagingItems<Movie>,
-    modifier: Modifier,
+    popularMovies: LazyPagingItems<Movie>,
     popTo: (Int) -> Unit,
 ) {
-    when (data.loadState.refresh) {
+    when (popularMovies.loadState.refresh) {
         LoadState.Loading -> {
             item {
                 ShowLoading(
-                    modifier = modifier,
                     text = stringResource(id = R.string.popular_movies)
                 )
             }
@@ -60,12 +58,12 @@ private fun LazyListScope.showPopularMovies(
 
         else -> {
             item {
-                ListTitle(R.string.popular_movies)
+                ListTitle(titleId = R.string.popular_movies)
             }
-            items(items = data.itemSnapshotList) { item ->
+            items(items = popularMovies.itemSnapshotList) { item ->
                 item?.let {
                     TitleCard(
-                        modifier = modifier.navigate(it.id, popTo),
+                        modifier = Modifier.navigate(it.id, popTo),
                         title = it.title,
                         voteAverage = it.voteAverage,
                         overview = it.overview,
@@ -79,15 +77,13 @@ private fun LazyListScope.showPopularMovies(
 }
 
 private fun LazyListScope.showUpcomingMovies(
-    nowPlaying: LazyPagingItems<Movie>,
-    modifier: Modifier,
+    upcomingMovies: LazyPagingItems<Movie>,
     popTo: (Int) -> Unit,
 ) {
-    when (nowPlaying.loadState.refresh) {
+    when (upcomingMovies.loadState.refresh) {
         LoadState.Loading -> {
             item {
                 ShowLoading(
-                    modifier = modifier,
                     text = stringResource(id = R.string.upcoming_movies)
                 )
             }
@@ -95,12 +91,12 @@ private fun LazyListScope.showUpcomingMovies(
 
         else -> {
             item {
-                ListTitle(R.string.now_playing_movies)
+                ListTitle(titleId = R.string.upcoming_movies)
                 LazyRow {
-                    items(items = nowPlaying.itemSnapshotList) { item ->
+                    items(items = upcomingMovies.itemSnapshotList) { item ->
                         item?.let {
                             TitleCard(
-                                modifier = modifier.navigate(it.id, popTo),
+                                modifier = Modifier.navigate(it.id, popTo),
                                 title = it.title,
                                 voteAverage = it.voteAverage,
                                 overview = it.overview,
@@ -116,15 +112,13 @@ private fun LazyListScope.showUpcomingMovies(
 }
 
 private fun LazyListScope.showNowPlayingMovies(
-    upcoming: LazyPagingItems<Movie>,
-    modifier: Modifier,
+    nowPlayingMovies: LazyPagingItems<Movie>,
     popTo: (Int) -> Unit,
 ) {
-    when (upcoming.loadState.refresh) {
+    when (nowPlayingMovies.loadState.refresh) {
         LoadState.Loading -> {
             item {
                 ShowLoading(
-                    modifier = modifier,
                     text = stringResource(id = R.string.now_playing_movies)
                 )
             }
@@ -132,12 +126,12 @@ private fun LazyListScope.showNowPlayingMovies(
 
         else -> {
             item {
-                ListTitle(R.string.upcoming_movies)
+                ListTitle(titleId = R.string.now_playing_movies)
                 LazyRow {
-                    items(items = upcoming.itemSnapshotList) { item ->
+                    items(items = nowPlayingMovies.itemSnapshotList) { item ->
                         item?.let {
                             TitleCard(
-                                modifier = modifier.navigate(it.id, popTo),
+                                modifier = Modifier.navigate(it.id, popTo),
                                 title = it.title,
                                 voteAverage = it.voteAverage,
                                 overview = it.overview,

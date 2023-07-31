@@ -13,5 +13,5 @@ enum class ComposeCatchflicksCategory(
 ) {
     MOVIE(R.string.movies, "movies"),
     TV(R.string.tv, "tv"),
-    SEARCH(R.string.search, "search")
+    SEARCH(R.string.search, "search"),
 }

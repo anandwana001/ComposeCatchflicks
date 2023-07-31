@@ -16,7 +16,7 @@ import com.akshay.composecatchflicks.ui.theme.textColor
  * 29, July, 2023
  **/
 @Composable
-fun RatingText(modifier: Modifier, rating: Float) {
+fun RatingText(modifier: Modifier = Modifier, rating: Float) {
     Text(
         modifier = modifier
             .fillMaxWidth()

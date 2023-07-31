@@ -13,7 +13,6 @@ import com.akshay.composecatchflicks.ui.theme.Purple80
 import com.akshay.composecatchflicks.ui.theme.PurpleGrey40
 import com.akshay.composecatchflicks.ui.theme.PurpleGrey80
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -22,7 +21,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -58,13 +56,21 @@ class SearchViewModel @Inject constructor(
                         it.copy(searchTextField = event.query)
                     }
                     _searchStateData.update {
-                        it.copy(searchResult = searchRepository.getSearchResult(event.query))
+                        it.copy(
+                            searchResult = if (event.query.isNotEmpty()) {
+                                searchRepository.getSearchResult(event.query)
+                            } else {
+                                emptyList()
+                            }
+                        )
                     }
                 }
             }
+
             is SearchEvent.OpenGenre -> {
 
             }
+
             is SearchEvent.SearchClear -> {
                 _searchStateData.update {
                     it.copy(

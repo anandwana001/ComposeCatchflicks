@@ -21,7 +21,7 @@ import com.akshay.composecatchflicks.ui.theme.Purple40
  **/
 
 @Composable
-fun ShowLoading(modifier: Modifier, text: String = stringResource(id = R.string.loading)) {
+fun ShowLoading(modifier: Modifier = Modifier, text: String = stringResource(id = R.string.loading)) {
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,

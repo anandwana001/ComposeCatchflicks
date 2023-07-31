@@ -7,5 +7,5 @@ package com.akshay.composecatchflicks.ui.screens.search.data
 sealed interface SearchEvent {
     data class OpenGenre(val id: Int) : SearchEvent
     data class SearchQuery(val query: String) : SearchEvent
-    object SearchClear : SearchEvent
+    data object SearchClear : SearchEvent
 }

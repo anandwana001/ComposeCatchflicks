@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.sp
  * 29, July, 2023
  **/
 @Composable
-fun TitleText(modifier: Modifier, title: String) {
+fun TitleText(modifier: Modifier = Modifier, title: String) {
     Text(
         modifier = modifier
             .fillMaxWidth()

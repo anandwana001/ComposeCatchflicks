@@ -16,7 +16,7 @@ class MoviesViewModel @Inject constructor(
     moviesRepository: MoviesRepository
 ) : ViewModel() {
 
-    val list = moviesRepository.getPopularMovies("en").cachedIn(viewModelScope)
+    val popularMoviesList = moviesRepository.getPopularMovies("en").cachedIn(viewModelScope)
     val nowPlayingMoviesList = moviesRepository.getNowPlayingMovies("en").cachedIn(viewModelScope)
     val upcomingMoviesList = moviesRepository.getUpcomingMovies("en").cachedIn(viewModelScope)
 }

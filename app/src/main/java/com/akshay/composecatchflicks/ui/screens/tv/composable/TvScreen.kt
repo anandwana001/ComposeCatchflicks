@@ -26,7 +26,7 @@ import com.akshay.composecatchflicks.ui.util.navigate
 @Composable
 fun TvScreen(
     modifier: Modifier = Modifier,
-    data: LazyPagingItems<Tv>,
+    topRatedTv: LazyPagingItems<Tv>,
     popTo: (Int) -> Unit,
 ) {
     LazyColumn(
@@ -34,20 +34,18 @@ fun TvScreen(
             .background(screenBackgroundColor)
             .fillMaxHeight()
     ) {
-        showTopRatedTv(data, modifier, popTo)
+        showTopRatedTv(topRatedTv, popTo)
     }
 }
 
 private fun LazyListScope.showTopRatedTv(
-    data: LazyPagingItems<Tv>,
-    modifier: Modifier,
+    topRatedTv: LazyPagingItems<Tv>,
     popTo: (Int) -> Unit,
 ) {
-    when (data.loadState.refresh) {
+    when (topRatedTv.loadState.refresh) {
         LoadState.Loading -> {
             item {
                 ShowLoading(
-                    modifier = modifier,
                     text = stringResource(id = R.string.top_rated_tv)
                 )
             }
@@ -55,12 +53,12 @@ private fun LazyListScope.showTopRatedTv(
 
         else -> {
             item {
-                ListTitle(R.string.top_rated_tv)
+                ListTitle(titleId = R.string.top_rated_tv)
             }
-            items(items = data.itemSnapshotList) { item ->
+            items(items = topRatedTv.itemSnapshotList) { item ->
                 item?.let {
                     TitleCard(
-                        modifier = modifier.navigate(it.id, popTo),
+                        modifier = Modifier.navigate(it.id, popTo),
                         title = it.name,
                         voteAverage = it.voteAverage,
                         overview = it.overview,

@@ -21,7 +21,7 @@ import com.akshay.composecatchflicks.ui.util.movieCardWidth
  **/
 @Composable
 fun TileDetailCard(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     name: String?,
     description: String?,
     rating: Float?,
@@ -37,18 +37,18 @@ fun TileDetailCard(
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .movieCardWidth(cardType)
                 .padding(start = 140.dp)
         ) {
             rating?.let {
-                RatingText(modifier, it)
+                RatingText(rating = it)
             }
             name?.let {
-                TitleText(modifier, it)
+                TitleText(title = it)
             }
             description?.let {
-                DescriptionText(modifier, it)
+                DescriptionText(des = it)
             }
         }
     }
@@ -66,9 +66,14 @@ fun TitleCard(
     Box(
         modifier = modifier.padding(horizontal = 16.dp)
     ) {
-        TileDetailCard(modifier, title, overview, voteAverage, cardType)
+        TileDetailCard(
+            name = title,
+            description = overview,
+            rating = voteAverage,
+            cardType = cardType
+        )
         posterPath?.let {
-            ThumbnailCard(modifier, it)
+            ThumbnailCard(posterThumbnail = it)
         }
     }
 }

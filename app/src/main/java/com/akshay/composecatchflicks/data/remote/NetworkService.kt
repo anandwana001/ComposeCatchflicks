@@ -58,5 +58,11 @@ interface NetworkService {
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
         @Query("language") language: String?,
         @Query("page") page: Int?
-    ): UpcomingMoviesResponse
+    ): TopRatedTvResponse
+
+    @GET(TV_DETAILS)
+    suspend fun getTvDetails(
+        @Path("series_id") series_id: Int,
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
+    ): TvDetailsResponse
 }
