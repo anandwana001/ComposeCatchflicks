@@ -95,7 +95,7 @@ Author: Akshay Nandwana
 
 
 ## Need a Mentor? [Click Here](https://topmate.io/anandwana001)
-<img src="https://github.com/anandwana001/anandwana001/assets/25057618/8fb4b911-28a9-460e-824b-67b06f215d95" width=400 height=80/>
+<img src="https://github.com/anandwana001/ComposeCatchflicks/assets/25057618/9ae5afa1-0745-4557-9a44-2985367fe405" width=400 height=150/>
 
 
 ## License
