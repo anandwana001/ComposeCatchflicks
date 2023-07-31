@@ -46,6 +46,7 @@ This is a Compose version of my earlier [Catchflicks](https://github.com/anandwa
 - [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html) - Async Programming
 - [StateFlow](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow) - Observable Data holder
 - [Compose Material3 for Android](https://github.com/material-components/material-components-android) - Modular and customizable Material Design
+- [AssistChip](https://m3.material.io/components/chips/specs) - Chips are for info
 - [Hilt](https://dagger.dev/hilt/) - Dependency Injection Library
 - [Retrofit](https://square.github.io/retrofit/) - Used for Networking
 - [OkHTTP](https://square.github.io/okhttp/) - HTTP Client required by Retrofit Library for Networking

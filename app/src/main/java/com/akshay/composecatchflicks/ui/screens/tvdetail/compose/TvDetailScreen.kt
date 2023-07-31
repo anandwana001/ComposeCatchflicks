@@ -14,6 +14,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.akshay.composecatchflicks.domain.model.TvDetail
+import com.akshay.composecatchflicks.ui.component.GenreChips
 
 /**
  * Created by anandwana001 on
@@ -61,21 +62,13 @@ fun TvDetailScreen(
             )
         }
         item {
-            Text(
-                modifier = modifier.padding(16.dp),
-                text = "Genres"
-            )
-            detail.value.genres.takeIf { it.isNotEmpty() }?.apply {
-                LazyRow(content = {
-                    items(size) { index ->
-                        get(index).name?.let {
-                            Text(
-                                modifier = modifier.padding(16.dp),
-                                text = it
-                            )
-                        }
-                    }
-                })
+            Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+                Text(
+                    text = "Genres"
+                )
+                detail.value.genres.takeIf { it.isNotEmpty() }?.let {
+                    GenreChips(it)
+                }
             }
         }
     }
