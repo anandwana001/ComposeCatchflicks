@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.akshay.composecatchflicks.R
@@ -27,7 +28,7 @@ fun ShowLoading(modifier: Modifier = Modifier, text: String = stringResource(id 
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        Text(text = text)
+        Text(text = text, color = Color.Black)
         Spacer(modifier = Modifier.height(4.dp))
         CircularProgressIndicator(color = Purple40)
     }

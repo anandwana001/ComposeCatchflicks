@@ -48,7 +48,7 @@ fun TileDetailCard(
                 TitleText(title = it)
             }
             description?.let {
-                DescriptionText(des = it)
+                DescriptionText(description = it)
             }
         }
     }

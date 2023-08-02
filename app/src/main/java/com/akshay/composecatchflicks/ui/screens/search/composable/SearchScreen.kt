@@ -60,8 +60,11 @@ fun SearchScreen(
     ) {
         SearchField(uiState = searchState, searchEvent = searchEvent)
         SearchResultUi(uiState = searchState)
-        ListTitle(titleId = R.string.genre)
-        GenreList(list = searchState.genreResult, listOfColors = searchState.listOfColors)
+
+        if(searchState.genreResult.isNotEmpty()) {
+            ListTitle(titleId = R.string.genre)
+            GenreList(list = searchState.genreResult, listOfColors = searchState.listOfColors)
+        }
     }
 }
 

@@ -11,7 +11,7 @@ import javax.inject.Inject
  * Created by anandwana001 on
  * 29, July, 2023
  **/
-class TvRepository@Inject constructor(
+class TvRepository @Inject constructor(
     private val networkService: NetworkService
 ) {
 

@@ -1,14 +1,17 @@
 package com.akshay.composecatchflicks.ui.screens.movies.composables
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.akshay.composecatchflicks.R
@@ -47,8 +50,33 @@ private fun LazyListScope.showPopularMovies(
     popularMovies: LazyPagingItems<Movie>,
     popTo: (Int) -> Unit,
 ) {
-    when (popularMovies.loadState.refresh) {
-        LoadState.Loading -> {
+    item {
+        ListTitle(titleId = R.string.popular_movies)
+    }
+
+    items(popularMovies.itemCount) { index ->
+        popularMovies[index].let {
+            it?.let {
+                TitleCard(
+                    modifier = Modifier.navigate(it.id, popTo),
+                    title = it.title,
+                    voteAverage = it.voteAverage,
+                    overview = it.overview,
+                    posterPath = it.posterPath,
+                    cardType = MovieCardType.FULL
+                )
+            }
+
+        }
+    }
+
+    item {
+        Spacer(modifier = Modifier.height(20.dp))
+    }
+
+
+    when {
+        popularMovies.loadState.refresh is LoadState.Loading -> {
             item {
                 ShowLoading(
                     text = stringResource(id = R.string.popular_movies)
@@ -56,21 +84,11 @@ private fun LazyListScope.showPopularMovies(
             }
         }
 
-        else -> {
+        popularMovies.loadState.append is LoadState.Loading -> {
             item {
-                ListTitle(titleId = R.string.popular_movies)
-            }
-            items(items = popularMovies.itemSnapshotList) { item ->
-                item?.let {
-                    TitleCard(
-                        modifier = Modifier.navigate(it.id, popTo),
-                        title = it.title,
-                        voteAverage = it.voteAverage,
-                        overview = it.overview,
-                        posterPath = it.posterPath,
-                        cardType = MovieCardType.FULL
-                    )
-                }
+                ShowLoading(
+                    text = stringResource(id = R.string.popular_movies)
+                )
             }
         }
     }
@@ -80,8 +98,33 @@ private fun LazyListScope.showUpcomingMovies(
     upcomingMovies: LazyPagingItems<Movie>,
     popTo: (Int) -> Unit,
 ) {
-    when (upcomingMovies.loadState.refresh) {
-        LoadState.Loading -> {
+    item {
+        ListTitle(titleId = R.string.upcoming_movies)
+        LazyRow {
+            items(upcomingMovies.itemCount) { index ->
+                upcomingMovies[index].let {
+                    it?.let {
+                        TitleCard(
+                            modifier = Modifier.navigate(it.id, popTo),
+                            title = it.title,
+                            voteAverage = it.voteAverage,
+                            overview = it.overview,
+                            posterPath = it.posterPath,
+                            cardType = MovieCardType.HALF
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    item {
+        Spacer(modifier = Modifier.width(20.dp))
+    }
+
+
+    when {
+        upcomingMovies.loadState.refresh is LoadState.Loading -> {
             item {
                 ShowLoading(
                     text = stringResource(id = R.string.upcoming_movies)
@@ -89,23 +132,11 @@ private fun LazyListScope.showUpcomingMovies(
             }
         }
 
-        else -> {
+        upcomingMovies.loadState.append is LoadState.Loading -> {
             item {
-                ListTitle(titleId = R.string.upcoming_movies)
-                LazyRow {
-                    items(items = upcomingMovies.itemSnapshotList) { item ->
-                        item?.let {
-                            TitleCard(
-                                modifier = Modifier.navigate(it.id, popTo),
-                                title = it.title,
-                                voteAverage = it.voteAverage,
-                                overview = it.overview,
-                                posterPath = it.posterPath,
-                                cardType = MovieCardType.HALF
-                            )
-                        }
-                    }
-                }
+                ShowLoading(
+                    text = stringResource(id = R.string.upcoming_movies)
+                )
             }
         }
     }
@@ -115,8 +146,33 @@ private fun LazyListScope.showNowPlayingMovies(
     nowPlayingMovies: LazyPagingItems<Movie>,
     popTo: (Int) -> Unit,
 ) {
-    when (nowPlayingMovies.loadState.refresh) {
-        LoadState.Loading -> {
+
+    item {
+        ListTitle(titleId = R.string.now_playing_movies)
+        LazyRow {
+            items(nowPlayingMovies.itemCount) { index ->
+                nowPlayingMovies[index].let {
+                    it?.let {
+                        TitleCard(
+                            modifier = Modifier.navigate(it.id, popTo),
+                            title = it.title,
+                            voteAverage = it.voteAverage,
+                            overview = it.overview,
+                            posterPath = it.posterPath,
+                            cardType = MovieCardType.HALF
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    item {
+        Spacer(modifier = Modifier.width(20.dp))
+    }
+
+    when {
+        nowPlayingMovies.loadState.refresh is LoadState.Loading -> {
             item {
                 ShowLoading(
                     text = stringResource(id = R.string.now_playing_movies)
@@ -124,23 +180,11 @@ private fun LazyListScope.showNowPlayingMovies(
             }
         }
 
-        else -> {
+        nowPlayingMovies.loadState.append is LoadState.Loading -> {
             item {
-                ListTitle(titleId = R.string.now_playing_movies)
-                LazyRow {
-                    items(items = nowPlayingMovies.itemSnapshotList) { item ->
-                        item?.let {
-                            TitleCard(
-                                modifier = Modifier.navigate(it.id, popTo),
-                                title = it.title,
-                                voteAverage = it.voteAverage,
-                                overview = it.overview,
-                                posterPath = it.posterPath,
-                                cardType = MovieCardType.HALF
-                            )
-                        }
-                    }
-                }
+                ShowLoading(
+                    text = stringResource(id = R.string.now_playing_movies)
+                )
             }
         }
     }

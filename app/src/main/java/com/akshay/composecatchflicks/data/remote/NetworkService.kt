@@ -2,6 +2,7 @@ package com.akshay.composecatchflicks.data.remote
 
 import com.akshay.composecatchflicks.BuildConfig
 import com.akshay.composecatchflicks.data.remote.response.*
+import com.akshay.composecatchflicks.util.ComposeCatchflicksNetworkResult
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -16,7 +17,7 @@ interface NetworkService {
     suspend fun getGenres(
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
         @Query("language") language: String?
-    ): GenreResponse
+    ): ComposeCatchflicksNetworkResult<GenreResponse>
 
     @GET(MOVIES_POPULAR)
     suspend fun getPopularMovies(

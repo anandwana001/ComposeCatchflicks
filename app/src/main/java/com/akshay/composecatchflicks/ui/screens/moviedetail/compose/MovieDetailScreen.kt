@@ -1,6 +1,7 @@
 package com.akshay.composecatchflicks.ui.screens.moviedetail.compose
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.akshay.composecatchflicks.domain.model.MovieDetail
 import com.akshay.composecatchflicks.ui.component.GenreChips
+import com.akshay.composecatchflicks.ui.theme.screenBackgroundColor
 import com.akshay.composecatchflicks.ui.util.BASE_IMAGE_PATH
 
 /**
@@ -34,6 +36,7 @@ fun MovieDetailScreen(
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
+            .background(screenBackgroundColor)
             .padding(bottom = 20.dp)
     ) {
         item {

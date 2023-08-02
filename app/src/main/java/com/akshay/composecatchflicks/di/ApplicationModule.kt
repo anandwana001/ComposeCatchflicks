@@ -1,6 +1,7 @@
 package com.akshay.composecatchflicks.di
 
 import com.akshay.composecatchflicks.BuildConfig
+import com.akshay.composecatchflicks.data.remote.NetworkAdapterFactory
 import com.akshay.composecatchflicks.data.remote.NetworkService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -50,6 +51,7 @@ class ApplicationModule {
             .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+            .addCallAdapterFactory(NetworkAdapterFactory.create())
             .build()
 
     @Provides

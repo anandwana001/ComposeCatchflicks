@@ -5,7 +5,7 @@ package com.akshay.composecatchflicks.util
  * 02, April, 2023
  **/
 sealed class ComposeCatchflicksResult<out T> {
-    object Loading : ComposeCatchflicksResult<Nothing>()
-    data class Error(val errorCode: Int) : ComposeCatchflicksResult<Nothing>()
-    data class Success<out T>(val data: T) : ComposeCatchflicksResult<T>()
+    data object Loading : ComposeCatchflicksResult<Nothing>()
+    data object Error : ComposeCatchflicksResult<Nothing>()
+    data class Success<T>(val data: T) : ComposeCatchflicksResult<T>()
 }

@@ -11,4 +11,4 @@ import kotlinx.parcelize.Parcelize
 data class Genres(
     val id: Int? = null,
     val name: String? = null,
-): Parcelable
+) : Parcelable

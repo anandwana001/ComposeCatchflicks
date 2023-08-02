@@ -12,6 +12,7 @@ import com.akshay.composecatchflicks.ui.theme.Purple40
 import com.akshay.composecatchflicks.ui.theme.Purple80
 import com.akshay.composecatchflicks.ui.theme.PurpleGrey40
 import com.akshay.composecatchflicks.ui.theme.PurpleGrey80
+import com.akshay.composecatchflicks.util.ComposeCatchflicksResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -84,11 +85,15 @@ class SearchViewModel @Inject constructor(
 
     private fun setupSearchScreen() {
         viewModelScope.launch {
-            _searchStateData.update {
-                it.copy(
-                    genreResult = genreRepository.getGenresList(),
-                    listOfColors = listOfColor
-                )
+            when (val response = genreRepository.getGenresList()) {
+                is ComposeCatchflicksResult.Success -> _searchStateData.update {
+                    it.copy(
+                        genreResult = response.data,
+                        listOfColors = listOfColor
+                    )
+                }
+
+                else -> Unit // handle failure
             }
         }
     }

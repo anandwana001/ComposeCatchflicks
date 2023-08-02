@@ -16,12 +16,12 @@ import com.akshay.composecatchflicks.ui.theme.textColor
  * 29, July, 2023
  **/
 @Composable
-fun DescriptionText(modifier: Modifier = Modifier, des: String) {
+fun DescriptionText(modifier: Modifier = Modifier, description: String) {
     Text(
         modifier = modifier
             .fillMaxWidth()
             .padding(start = 8.dp, end = 8.dp, top = 16.dp, bottom = 24.dp),
-        text = des,
+        text = description,
         maxLines = 3,
         style = MaterialTheme.typography.bodyLarge,
         color = textColor,
