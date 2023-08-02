@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akshay.composecatchflicks.domain.model.TvDetail
 import com.akshay.composecatchflicks.domain.repository.TvRepository
+import com.akshay.composecatchflicks.util.ComposeCatchflicksResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,7 +33,14 @@ class TvDetailViewModel @Inject constructor(
 
     private fun getTvDetail() {
         viewModelScope.launch {
-            _tvStateData.value = tvRepository.getTvDetails(seriesId)
+            when (val response = tvRepository.getTvDetails(seriesId)) {
+                is ComposeCatchflicksResult.Success -> {
+                    _tvStateData.value = response.data
+                }
+
+                else -> Unit // handle error
+            }
+
         }
     }
 }

@@ -56,14 +56,17 @@ class SearchViewModel @Inject constructor(
                     _searchStateData.update {
                         it.copy(searchTextField = event.query)
                     }
-                    _searchStateData.update {
-                        it.copy(
-                            searchResult = if (event.query.isNotEmpty()) {
-                                searchRepository.getSearchResult(event.query)
-                            } else {
-                                emptyList()
+
+                    if (event.query.isNotEmpty()) {
+                        when (val response = searchRepository.getSearchResult(event.query)) {
+                            is ComposeCatchflicksResult.Success -> _searchStateData.update {
+                                it.copy(
+                                    searchResult = response.data
+                                )
                             }
-                        )
+
+                            else -> Unit // handle failure
+                        }
                     }
                 }
             }

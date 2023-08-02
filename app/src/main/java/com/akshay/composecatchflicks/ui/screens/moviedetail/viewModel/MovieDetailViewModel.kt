@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akshay.composecatchflicks.domain.model.MovieDetail
 import com.akshay.composecatchflicks.domain.repository.MoviesRepository
+import com.akshay.composecatchflicks.util.ComposeCatchflicksResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,7 +33,14 @@ class MovieDetailViewModel @Inject constructor(
 
     private fun getMovieDetail() {
         viewModelScope.launch {
-            _movieStateData.value = moviesRepository.getMovieDetails(movieId)
+            when (val response = moviesRepository.getMovieDetails(movieId)) {
+                is ComposeCatchflicksResult.Success -> {
+                    _movieStateData.value = response.data
+                }
+
+                else -> Unit // handle error
+            }
+
         }
     }
 }

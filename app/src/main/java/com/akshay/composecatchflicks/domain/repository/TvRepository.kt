@@ -4,6 +4,8 @@ import com.akshay.composecatchflicks.data.remote.NetworkService
 import com.akshay.composecatchflicks.domain.model.Genres
 import com.akshay.composecatchflicks.domain.model.Tv
 import com.akshay.composecatchflicks.domain.model.TvDetail
+import com.akshay.composecatchflicks.util.ComposeCatchflicksNetworkResult
+import com.akshay.composecatchflicks.util.ComposeCatchflicksResult
 import com.akshay.composecatchflicks.util.createPager
 import javax.inject.Inject
 
@@ -18,41 +20,50 @@ class TvRepository @Inject constructor(
     fun getTopRatedTv(
         language: String,
     ) = createPager { page ->
-        val data = networkService.getTopRatedTv(
+        when (val networkResponse = networkService.getTopRatedTv(
             language = language,
             page = page
-        )
-        Pair(
-            first = data.results?.map {
-                Tv(
-                    id = it.id,
-                    name = it.title,
-                    overview = it.overview,
-                    voteAverage = it.vote_average,
-                    posterPath = it.poster_path,
-                    backdropPath = it.backdrop_path
-                )
-            } ?: emptyList(),
-            second = data.total_pages ?: 0
-        )
+        )) {
+            is ComposeCatchflicksNetworkResult.Failure -> {
+                ComposeCatchflicksNetworkResult.Failure
+            }
+
+            is ComposeCatchflicksNetworkResult.Success -> {
+                ComposeCatchflicksNetworkResult.Success(Pair(
+                    first = networkResponse.data.results?.map {
+                        Tv(
+                            id = it.id,
+                            name = it.title,
+                            overview = it.overview,
+                            voteAverage = it.vote_average,
+                            posterPath = it.poster_path,
+                            backdropPath = it.backdrop_path
+                        )
+                    } ?: emptyList(),
+                    second = networkResponse.data.total_pages ?: 0
+                ))
+            }
+        }
     }.flow
 
-    suspend fun getTvDetails(series_id: Int): TvDetail {
-        val data = networkService.getTvDetails(series_id = series_id)
-        return TvDetail(
-            id = data.id,
-            title = data.title,
-            overview = data.overview,
-            voteAverage = data.vote_average,
-            posterPath = data.poster_path,
-            backdropPath = data.backdrop_path,
-            genres = data.genres?.filter {
-                it.name != null && it.id != null
-            }?.map {
-                Genres(it.id, it.name)
-            } ?: run {
-                emptyList()
-            }
-        )
+    suspend fun getTvDetails(series_id: Int): ComposeCatchflicksResult<TvDetail> {
+        return when (val networkResponse = networkService.getTvDetails(series_id = series_id)) {
+            is ComposeCatchflicksNetworkResult.Failure -> ComposeCatchflicksResult.Error
+            is ComposeCatchflicksNetworkResult.Success -> ComposeCatchflicksResult.Success(
+                TvDetail(id = networkResponse.data.id,
+                    title = networkResponse.data.title,
+                    overview = networkResponse.data.overview,
+                    voteAverage = networkResponse.data.vote_average,
+                    posterPath = networkResponse.data.poster_path,
+                    backdropPath = networkResponse.data.backdrop_path,
+                    genres = networkResponse.data.genres?.filter {
+                        it.name != null && it.id != null
+                    }?.map {
+                        Genres(it.id, it.name)
+                    } ?: run {
+                        emptyList()
+                    })
+            )
+        }
     }
 }

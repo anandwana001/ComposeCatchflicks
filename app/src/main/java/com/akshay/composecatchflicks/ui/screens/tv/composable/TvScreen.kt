@@ -14,6 +14,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.akshay.composecatchflicks.R
 import com.akshay.composecatchflicks.domain.model.Tv
+import com.akshay.composecatchflicks.ui.component.ListTitle
 import com.akshay.composecatchflicks.ui.component.ShowLoading
 import com.akshay.composecatchflicks.ui.component.TitleCard
 import com.akshay.composecatchflicks.ui.theme.screenBackgroundColor
@@ -45,7 +46,7 @@ private fun LazyListScope.showTopRatedTv(
 ) {
 
     item {
-        Spacer(modifier = Modifier.height(20.dp))
+        ListTitle(titleId = R.string.top_rated_tv)
     }
 
     items(topRatedTv.itemCount) { index ->
@@ -62,6 +63,10 @@ private fun LazyListScope.showTopRatedTv(
             }
 
         }
+    }
+
+    item {
+        Spacer(modifier = Modifier.height(20.dp))
     }
 
     when {

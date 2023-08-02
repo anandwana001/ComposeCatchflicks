@@ -24,21 +24,21 @@ interface NetworkService {
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
         @Query("language") language: String?,
         @Query("page") page: Int?
-    ): PopularMoviesResponse
+    ): ComposeCatchflicksNetworkResult<PopularMoviesResponse>
 
     @GET(MOVIES_NOW_PLAYING)
     suspend fun getNowPlayingMovies(
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
         @Query("language") language: String?,
         @Query("page") page: Int?
-    ): NowPlayingMoviesResponse
+    ): ComposeCatchflicksNetworkResult<NowPlayingMoviesResponse>
 
     @GET(MOVIES_UPCOMING)
     suspend fun getUpcomingMovies(
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
         @Query("language") language: String?,
         @Query("page") page: Int?
-    ): UpcomingMoviesResponse
+    ): ComposeCatchflicksNetworkResult<UpcomingMoviesResponse>
 
     @GET(MOVIES_SEARCH)
     suspend fun searchMovies(
@@ -46,24 +46,24 @@ interface NetworkService {
         @Query("language") language: String?,
         @Query("query") query: String,
         @Query("page") page: Int?
-    ): SearchMoviesResponse
+    ): ComposeCatchflicksNetworkResult<SearchMoviesResponse>
 
     @GET(MOVIE_DETAILS)
     suspend fun getMovieDetails(
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
-    ): MovieDetailResponse
+    ): ComposeCatchflicksNetworkResult<MovieDetailResponse>
 
     @GET(TV_TOP_RATED)
     suspend fun getTopRatedTv(
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
         @Query("language") language: String?,
         @Query("page") page: Int?
-    ): TopRatedTvResponse
+    ): ComposeCatchflicksNetworkResult<TopRatedTvResponse>
 
     @GET(TV_DETAILS)
     suspend fun getTvDetails(
         @Path("series_id") series_id: Int,
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
-    ): TvDetailsResponse
+    ): ComposeCatchflicksNetworkResult<TvDetailsResponse>
 }

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -74,7 +75,6 @@ private fun LazyListScope.showPopularMovies(
         Spacer(modifier = Modifier.height(20.dp))
     }
 
-
     when {
         popularMovies.loadState.refresh is LoadState.Loading -> {
             item {
@@ -89,6 +89,12 @@ private fun LazyListScope.showPopularMovies(
                 ShowLoading(
                     text = stringResource(id = R.string.popular_movies)
                 )
+            }
+        }
+
+        popularMovies.loadState.refresh is LoadState.Error -> {
+            item {
+                Text(text = "Not Loading")
             }
         }
     }
@@ -139,6 +145,12 @@ private fun LazyListScope.showUpcomingMovies(
                 )
             }
         }
+
+        upcomingMovies.loadState.refresh is LoadState.Error -> {
+            item {
+                Text(text = "Not Loading")
+            }
+        }
     }
 }
 
@@ -185,6 +197,12 @@ private fun LazyListScope.showNowPlayingMovies(
                 ShowLoading(
                     text = stringResource(id = R.string.now_playing_movies)
                 )
+            }
+        }
+
+        nowPlayingMovies.loadState.refresh is LoadState.Error -> {
+            item {
+                Text(text = "Not Loading")
             }
         }
     }
