@@ -1,18 +1,19 @@
 package com.akshay.composecatchflicks.ui.screens.tv.composable
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.akshay.composecatchflicks.R
 import com.akshay.composecatchflicks.domain.model.Tv
-import com.akshay.composecatchflicks.ui.component.ListTitle
 import com.akshay.composecatchflicks.ui.component.ShowLoading
 import com.akshay.composecatchflicks.ui.component.TitleCard
 import com.akshay.composecatchflicks.ui.theme.screenBackgroundColor
@@ -42,8 +43,29 @@ private fun LazyListScope.showTopRatedTv(
     topRatedTv: LazyPagingItems<Tv>,
     popTo: (Int) -> Unit,
 ) {
-    when (topRatedTv.loadState.refresh) {
-        LoadState.Loading -> {
+
+    item {
+        Spacer(modifier = Modifier.height(20.dp))
+    }
+
+    items(topRatedTv.itemCount) { index ->
+        topRatedTv[index].let {
+            it?.let {
+                TitleCard(
+                    modifier = Modifier.navigate(it.id, popTo),
+                    title = it.name,
+                    voteAverage = it.voteAverage,
+                    overview = it.overview,
+                    posterPath = it.posterPath,
+                    cardType = MovieCardType.FULL
+                )
+            }
+
+        }
+    }
+
+    when {
+        topRatedTv.loadState.refresh is LoadState.Loading -> {
             item {
                 ShowLoading(
                     text = stringResource(id = R.string.top_rated_tv)
@@ -51,21 +73,11 @@ private fun LazyListScope.showTopRatedTv(
             }
         }
 
-        else -> {
+        topRatedTv.loadState.append is LoadState.Loading -> {
             item {
-                ListTitle(titleId = R.string.top_rated_tv)
-            }
-            items(items = topRatedTv.itemSnapshotList) { item ->
-                item?.let {
-                    TitleCard(
-                        modifier = Modifier.navigate(it.id, popTo),
-                        title = it.name,
-                        voteAverage = it.voteAverage,
-                        overview = it.overview,
-                        posterPath = it.posterPath,
-                        cardType = MovieCardType.FULL
-                    )
-                }
+                ShowLoading(
+                    text = stringResource(id = R.string.top_rated_tv)
+                )
             }
         }
     }
