@@ -28,8 +28,7 @@
 
 
 ## Architecture
-
-
+Following MVVM Architecture based on a single 'app' module.
 
 ### Packing Structure
 - data
