@@ -71,7 +71,8 @@ Following MVVM Architecture based on a single 'app' module.
 
 ## Development Setup ⚙️
 
-![blue_long_2-9665a76b1ae401a510ec1e0ca40ddcb3b0cfe45f1d51b77a308fea0845885648](https://github.com/anandwana001/ComposeCatchflicks/assets/25057618/6706b635-2239-42ce-a8d0-7aa7248da11b)
+![blue_long_2-9665a76b1ae401a510ec1e0ca40ddcb3b0cfe45f1d51b77a308fea0845885648](https://github.com/anandwana001/ComposeCatchflicks/assets/25057618/45da47c4-b020-46ef-b731-bea95393b7c2)
+
 
 This project fetches movies data from the [TMDb API](https://developers.themoviedb.org/4/getting-started).<br>
 To begin the setup, you'll need to create an API key.
