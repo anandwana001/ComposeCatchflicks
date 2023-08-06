@@ -82,9 +82,7 @@ fun NavHostContainer(
                 MOVIE_DETAIL_ROUTE,
                 arguments = listOf(navArgument("movieId") { type = NavType.IntType })
             ) {
-                val movieDetailViewModel = hiltViewModel<MovieDetailViewModel>()
-                val detail = movieDetailViewModel.movieStateData.collectAsStateWithLifecycle()
-                MovieDetailScreen(detail = detail)
+                MovieDetailScreen()
             }
 
             composable(
