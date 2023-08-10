@@ -1,5 +1,7 @@
 package com.akshay.composecatchflicks.ui.navigation
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -15,7 +17,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.akshay.composecatchflicks.ui.screens.moviedetail.compose.MovieDetailScreen
-import com.akshay.composecatchflicks.ui.screens.moviedetail.viewModel.MovieDetailViewModel
 import com.akshay.composecatchflicks.ui.screens.movies.composables.MoviesScreen
 import com.akshay.composecatchflicks.ui.screens.movies.viewmodel.MoviesViewModel
 import com.akshay.composecatchflicks.ui.screens.search.composable.SearchScreen
@@ -80,7 +81,13 @@ fun NavHostContainer(
             }
             composable(
                 MOVIE_DETAIL_ROUTE,
-                arguments = listOf(navArgument("movieId") { type = NavType.IntType })
+                arguments = listOf(navArgument("movieId") { type = NavType.IntType }),
+                enterTransition = {
+                    slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Down)
+                },
+                popExitTransition = {
+                    slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Up)
+                }
             ) {
                 MovieDetailScreen()
             }

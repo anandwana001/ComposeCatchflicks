@@ -66,7 +66,7 @@ android {
 fun getTmdbApiKey() = gradleLocalProperties(rootDir).getProperty("TMDB_API_KEY") ?: ""
 
 dependencies {
-    val composeBom = platform("androidx.compose:compose-bom:2023.06.01")
+    val composeBom = platform("androidx.compose:compose-bom:2023.08.00")
     implementation(composeBom)
     androidTestImplementation(composeBom)
 
@@ -88,7 +88,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
 
     // Networking
-    val okhttp_version =  "4.11.0"
+    val okhttp_version = "4.11.0"
     val retrofit_version = "2.9.0"
     implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
     implementation("com.squareup.okhttp3:okhttp:$okhttp_version")
@@ -103,11 +103,11 @@ dependencies {
     val hilt_version = "2.47"
     implementation("com.google.dagger:hilt-android:$hilt_version")
     kapt("com.google.dagger:hilt-compiler:$hilt_version")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     // Navigation
-    implementation("androidx.navigation:navigation-common-ktx:2.6.0")
-    implementation("androidx.navigation:navigation-compose:2.6.0")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation("androidx.navigation:navigation-common-ktx:2.7.0")
+    implementation("androidx.navigation:navigation-compose:2.7.0")
 
     implementation("androidx.palette:palette-ktx:1.0.0")
 
