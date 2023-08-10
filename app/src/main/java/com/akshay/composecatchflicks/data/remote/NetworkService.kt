@@ -66,4 +66,11 @@ interface NetworkService {
         @Path("series_id") series_id: Int,
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
     ): ComposeCatchflicksNetworkResult<TvDetailsResponse>
+
+    @GET(DISCOVER_MOVIE)
+    suspend fun getGenreMovie(
+        @Query("with_genres") with_genres: Int,
+        @Query("page") page: Int?,
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
+    ): ComposeCatchflicksNetworkResult<PopularMoviesResponse>
 }

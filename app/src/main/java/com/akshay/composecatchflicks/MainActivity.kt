@@ -13,6 +13,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.akshay.composecatchflicks.ui.component.CatchflicksBottomNavigationBar
 import com.akshay.composecatchflicks.ui.component.CatchflicksTopAppBar
+import com.akshay.composecatchflicks.ui.navigation.GENRE_DETAIL_ROUTE
 import com.akshay.composecatchflicks.ui.navigation.MOVIE_DETAIL_ROUTE
 import com.akshay.composecatchflicks.ui.navigation.NavHostContainer
 import com.akshay.composecatchflicks.ui.navigation.TV_DETAIL_ROUTE
@@ -29,8 +30,8 @@ class MainActivity : ComponentActivity() {
                 val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 when (navBackStackEntry?.destination?.route) {
-                    MOVIE_DETAIL_ROUTE -> bottomBarState.value = false
-                    TV_DETAIL_ROUTE -> bottomBarState.value = false
+                    MOVIE_DETAIL_ROUTE, TV_DETAIL_ROUTE, GENRE_DETAIL_ROUTE -> bottomBarState.value =
+                        false
                     else -> {
                         if (!bottomBarState.value) bottomBarState.value = true
                     }

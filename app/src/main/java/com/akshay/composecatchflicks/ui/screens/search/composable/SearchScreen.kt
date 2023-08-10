@@ -52,6 +52,7 @@ fun SearchScreen(
     modifier: Modifier = Modifier,
     searchState: SearchState,
     searchEvent: (SearchEvent) -> Unit,
+    popTo: (Int, String) -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -61,9 +62,13 @@ fun SearchScreen(
         SearchField(uiState = searchState, searchEvent = searchEvent)
         SearchResultUi(uiState = searchState)
 
-        if(searchState.genreResult.isNotEmpty()) {
+        if (searchState.genreResult.isNotEmpty()) {
             ListTitle(titleId = R.string.genre)
-            GenreList(list = searchState.genreResult, listOfColors = searchState.listOfColors)
+            GenreList(
+                list = searchState.genreResult,
+                listOfColors = searchState.listOfColors,
+                popTo = popTo
+            )
         }
     }
 }
@@ -146,7 +151,7 @@ private fun SearchResultUi(
 }
 
 @Composable
-private fun GenreList(list: List<Genres>, listOfColors: List<Color>) {
+private fun GenreList(list: List<Genres>, listOfColors: List<Color>, popTo: (Int, String) -> Unit) {
     val listRem by rememberSaveable {
         mutableStateOf(list)
     }
@@ -160,6 +165,11 @@ private fun GenreList(list: List<Genres>, listOfColors: List<Color>) {
             item.name?.let {
                 Box(
                     modifier = Modifier
+                        .clickable {
+                            item.id?.let {
+                                popTo(it, item.name)
+                            }
+                        }
                         .padding(4.dp)
                         .background(
                             color = listOfColors[index % listOfColors.size],

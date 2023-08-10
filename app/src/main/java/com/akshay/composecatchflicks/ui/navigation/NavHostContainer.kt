@@ -1,7 +1,6 @@
 package com.akshay.composecatchflicks.ui.navigation
 
 import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -19,7 +18,9 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.akshay.composecatchflicks.ui.screens.moviedetail.compose.MovieDetailScreen
 import com.akshay.composecatchflicks.ui.screens.movies.composables.MoviesScreen
 import com.akshay.composecatchflicks.ui.screens.movies.viewmodel.MoviesViewModel
+import com.akshay.composecatchflicks.ui.screens.search.composable.GenreDetailScreen
 import com.akshay.composecatchflicks.ui.screens.search.composable.SearchScreen
+import com.akshay.composecatchflicks.ui.screens.search.viewModel.GenreDetailViewModel
 import com.akshay.composecatchflicks.ui.screens.search.viewModel.SearchViewModel
 import com.akshay.composecatchflicks.ui.screens.tv.composable.TvScreen
 import com.akshay.composecatchflicks.ui.screens.tv.viewModel.TvViewModel
@@ -34,6 +35,7 @@ import kotlinx.coroutines.launch
 
 const val MOVIE_DETAIL_ROUTE = "detail/{movieId}"
 const val TV_DETAIL_ROUTE = "tvDetail/{seriesId}"
+const val GENRE_DETAIL_ROUTE = "genreDetail/{genreId}/{genreName}"
 
 @Composable
 fun NavHostContainer(
@@ -73,11 +75,15 @@ fun NavHostContainer(
             composable(ComposeCatchflicksCategory.SEARCH.route) {
                 val coroutineScope = rememberCoroutineScope()
                 val searchState by searchViewModel.searchStateData.collectAsStateWithLifecycle()
-                SearchScreen(searchState = searchState) {
+                SearchScreen(searchState = searchState, popTo = { id, name ->
+                    navController.navigate("genreDetail/${id}/${name}") {
+                        popUpTo("search")
+                    }
+                }, searchEvent = {
                     coroutineScope.launch {
                         searchViewModel.emitEvent(it)
                     }
-                }
+                })
             }
             composable(
                 MOVIE_DETAIL_ROUTE,
@@ -99,6 +105,27 @@ fun NavHostContainer(
                 val tvDetailViewModel = hiltViewModel<TvDetailViewModel>()
                 val detail = tvDetailViewModel.tvStateData.collectAsStateWithLifecycle()
                 TvDetailScreen(detail = detail)
+            }
+
+            composable(
+                GENRE_DETAIL_ROUTE,
+                arguments = listOf(navArgument("genreId") { type = NavType.IntType },
+                    navArgument("genreName") { type = NavType.StringType }),
+                enterTransition = {
+                    slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Up)
+                },
+                popExitTransition = {
+                    slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Down)
+                }
+            ) {
+                val genreViewModel = hiltViewModel<GenreDetailViewModel>()
+                val list = genreViewModel.genreDetailList.collectAsLazyPagingItems()
+                GenreDetailScreen(
+                    genreDetailList = list,
+                    genreName = genreViewModel.genreName
+                ) { id ->
+                    navController.navigate("detail/${id}")
+                }
             }
         })
 }
