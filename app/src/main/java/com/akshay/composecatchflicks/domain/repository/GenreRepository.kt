@@ -31,18 +31,15 @@ class GenreRepository @Inject constructor(private val networkService: NetworkSer
     fun getGenreDetail(
         genreId: Int,
     ) = createPager { page ->
-        println("======> ${page}")
         when (val networkResponse = networkService.getGenreMovie(
             with_genres = genreId,
             page = page,
         )) {
             is ComposeCatchflicksNetworkResult.Failure -> {
-                println("======> Failure ${networkResponse}")
                 ComposeCatchflicksNetworkResult.Failure
             }
 
             is ComposeCatchflicksNetworkResult.Success -> {
-                println("======> Success ${networkResponse}")
                 ComposeCatchflicksNetworkResult.Success(Pair(
                     first = networkResponse.data.results?.map {
                         Movie(

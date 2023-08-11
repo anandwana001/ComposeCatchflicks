@@ -114,6 +114,12 @@ fun NavHostContainer(
                 enterTransition = {
                     slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Up)
                 },
+                exitTransition = {
+                    slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Down)
+                },
+                popEnterTransition = {
+                    slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Up)
+                },
                 popExitTransition = {
                     slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Down)
                 }
