@@ -67,6 +67,13 @@ class SearchViewModel @Inject constructor(
 
                             else -> Unit // handle failure
                         }
+                    } else {
+                        _searchStateData.update {
+                            it.copy(
+                                searchResult = emptyList(),
+                                searchTextField = ""
+                            )
+                        }
                     }
                 }
             }

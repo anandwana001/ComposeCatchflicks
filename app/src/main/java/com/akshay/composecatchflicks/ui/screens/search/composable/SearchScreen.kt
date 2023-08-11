@@ -1,5 +1,13 @@
 package com.akshay.composecatchflicks.ui.screens.search.composable
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -28,10 +36,12 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.akshay.composecatchflicks.R
@@ -129,7 +139,19 @@ private fun SearchResultUi(
     modifier: Modifier = Modifier,
     uiState: SearchState,
 ) {
-    if (uiState.searchResult.isNotEmpty()) {
+    val isResultReady by remember(
+        uiState.searchResult
+    ) { mutableStateOf(uiState.searchResult.isNotEmpty()) }
+    AnimatedVisibility(visible = isResultReady,
+        enter = slideInVertically(
+            initialOffsetY = { -40 }
+        ) + expandVertically(
+            expandFrom = Alignment.Top
+        ) + scaleIn(
+            transformOrigin = TransformOrigin(0.5f, 0f)
+        ) + fadeIn(initialAlpha = 0.3f),
+        exit = slideOutVertically() + shrinkVertically() + scaleOut()
+    ) {
         LazyColumn(
             modifier = modifier
                 .height(200.dp)
