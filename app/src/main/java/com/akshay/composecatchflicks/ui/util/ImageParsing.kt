@@ -34,6 +34,9 @@ fun extractColorsFromBitmap(bitmap: Bitmap): Map<String, String> {
         "vibrant" to parseColorSwatch(
             color = Palette.from(bitmap).generate().lightVibrantSwatch
         ),
+        "dark" to parseColorSwatch(
+            color = Palette.from(bitmap).generate().vibrantSwatch
+        ),
     )
 }
 

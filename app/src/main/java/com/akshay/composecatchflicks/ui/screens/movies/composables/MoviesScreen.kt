@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
@@ -20,6 +21,7 @@ import com.akshay.composecatchflicks.domain.model.Movie
 import com.akshay.composecatchflicks.ui.component.ListTitle
 import com.akshay.composecatchflicks.ui.component.ShowLoading
 import com.akshay.composecatchflicks.ui.component.TitleCard
+import com.akshay.composecatchflicks.ui.theme.backgroundColor
 import com.akshay.composecatchflicks.ui.theme.screenBackgroundColor
 import com.akshay.composecatchflicks.ui.util.MovieCardType
 import com.akshay.composecatchflicks.ui.util.navigate
@@ -38,7 +40,11 @@ fun MoviesScreen(
 ) {
     LazyColumn(
         modifier = modifier
-            .background(screenBackgroundColor)
+            .background(
+                brush = Brush.horizontalGradient(
+                    listOf(screenBackgroundColor, backgroundColor),
+                )
+            )
             .fillMaxHeight()
     ) {
         showUpcomingMovies(upcoming, popTo)

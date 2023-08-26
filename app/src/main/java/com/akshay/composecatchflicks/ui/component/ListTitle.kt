@@ -28,7 +28,6 @@ fun ListTitle(modifier: Modifier = Modifier, @StringRes titleId: Int) {
     }
     Text(
         modifier = modifier
-            .fillMaxWidth()
             .padding(16.dp),
         style = MaterialTheme.typography.headlineSmall,
         text = stringResource(id = titleRemember),
