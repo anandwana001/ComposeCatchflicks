@@ -1,5 +1,5 @@
 <p align="center">
-<img src="/app/src/main/res/drawable/app_logo.png"/>
+<img width=200 height=200 src="/app/src/main/res/drawable/app_logo.png"/>
 </p>
 
 <h1 align="center">ComposeCatchflicks 🎬</h1>
@@ -8,6 +8,22 @@
 <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
 <img src="https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white" />
 <img src="https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=for-the-badge&logo=API&logoColor=white" />
+
+</p>
+
+<p align="center">
+<a href="https://twitter.com/akshay81844">
+  <img alt="Akshay's Twitter" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/twitter.svg" />
+</a>
+&nbsp;&nbsp;
+<a href="https://www.linkedin.com/in/anandwana001/">
+  <img alt="Akshay's Linkdein" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />
+</a>
+&nbsp;&nbsp;
+<a href="https://www.youtube.com/@anandwana001/">
+  <img alt="Akshay's YouTube" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/youtube.svg" />
+</a>
+<br><br>
 </p>
 
 <p align="center">  
@@ -108,6 +124,9 @@ Author: Akshay Nandwana
 </a>
 <a href="https://www.linkedin.com/in/anandwana001/">
   <img align="left" alt="Akshay's Linkdein" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />
+</a>
+<a href="https://www.youtube.com/@anandwana001/">
+  <img align="left" alt="Akshay's YouTube" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/youtube.svg" />
 </a>
 <br><br>
 
